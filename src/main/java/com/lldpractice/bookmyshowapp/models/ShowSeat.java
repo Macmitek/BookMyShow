@@ -19,5 +19,6 @@ public class ShowSeat extends BaseModel {
 
     @Enumerated(value = EnumType.ORDINAL)
     private ShowSeatStatus status;
+
     private Date blockedAt;
 }

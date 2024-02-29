@@ -13,7 +13,9 @@ import java.util.List;
 public class Show extends BaseModel {
     @ManyToOne
     private Movie movie;
+
     private Date startTime;
+
     private Date endTime;
 
     @ManyToOne
