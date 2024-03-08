@@ -28,7 +28,14 @@ public class UserController {
         return response;
     }
     public LoginResponseDto login(LoginRequestDto request) {
-
-        return null;
+        LoginResponseDto response = new LoginResponseDto();
+        try {
+            User loggedInUser = userService.login(request.getEmail(), request.getPassword());
+            response.setStatus(ResponseStatus.SUCCESS);
+            response.setUserId(loggedInUser.getId());
+        } catch (Exception e) {
+            response.setStatus(ResponseStatus.FAILURE);
+        }
+        return response;
     }
 }

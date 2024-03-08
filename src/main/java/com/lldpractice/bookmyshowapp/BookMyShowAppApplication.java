@@ -1,6 +1,8 @@
 package com.lldpractice.bookmyshowapp;
 
 import com.lldpractice.bookmyshowapp.controllers.UserController;
+import com.lldpractice.bookmyshowapp.dto.LoginRequestDto;
+import com.lldpractice.bookmyshowapp.dto.LoginResponseDto;
 import com.lldpractice.bookmyshowapp.dto.SignUpRequestDto;
 import com.lldpractice.bookmyshowapp.dto.SignUpResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,17 @@ public class BookMyShowAppApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws  Exception{
-		SignUpRequestDto request = new SignUpRequestDto();
-		request.setEmail("jadavmitesh.jd@gmail.com");
-		request.setPassword("verynice");
-		SignUpResponseDto responseDto = userController.signUp(request);
+//		SignUpRequestDto request = new SignUpRequestDto();
+//		request.setEmail("mjisthebest@gmail.com");
+//		request.setPassword("mjboi");
+//		SignUpResponseDto responseDto = userController.signUp(request);
+
+
+		LoginRequestDto request = new LoginRequestDto();
+		request.setEmail("mjisthebest@gmail.com");
+		request.setPassword("mjboi");
+
+		LoginResponseDto responseDto = userController.login(request);
 
 		System.out.println(responseDto.getStatus()+  "  "  +responseDto.getUserId());
 	}
