@@ -10,8 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+public class Booking extends BaseModel {
 
-public class Booking extends  BaseModel {
     @Enumerated(value = EnumType.ORDINAL)
     private BookingStatus bookingStatus;
 
@@ -20,12 +20,10 @@ public class Booking extends  BaseModel {
 
     @ManyToOne
     private User user;
-
     private Date bookedAt;
 
     @ManyToOne
     private Show show;
-
     private int amount;
 
     @OneToMany

@@ -41,23 +41,33 @@ public class BookingService {
     public Booking bookMovie(List<Long> showSeatIds, Long userId, Long showId){
 
         Optional<User> userOptional = userRepository.findById(userId);
-        if(userOptional.isEmpty()){
+
+        if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found");
         }
+
         User bookedBy = userOptional.get();
 
+
+        // Step 2
         Optional<Show> showOptional = showRepository.findById(showId);
-        if(showOptional.isEmpty()){
+
+        if (showOptional.isEmpty()) {
             throw new RuntimeException("Show not found");
         }
-       Show bookedShow = showOptional.get();
 
+
+        Show bookedShow = showOptional.get();
+        // Step 3
         List<ShowSeat> showSeats = showSeatRepository.findAllById(showSeatIds);
 
-        for(ShowSeat showSeat : showSeats){
-            if(isShowSeatAvailable(showSeat)){
+        // Step 4
+
+        for (ShowSeat showSeat : showSeats) {
+            if (!isShowSeatAvailable(showSeat)) {
                 throw new RuntimeException("Some of the show seats are not available!");
             }
+
             showSeat.setStatus(ShowSeatStatus.BLOCKED);
         }
 
@@ -74,6 +84,7 @@ public class BookingService {
 
         return bookingRepository.save(booking);
     }
+
     private boolean isShowSeatAvailable(ShowSeat showSeat) {
         return showSeat.getStatus().equals(ShowSeatStatus.AVAILABLE) ||
                 (showSeat.getStatus().equals(ShowSeatStatus.BLOCKED) &&

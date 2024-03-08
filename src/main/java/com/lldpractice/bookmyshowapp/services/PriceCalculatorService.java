@@ -2,6 +2,7 @@ package com.lldpractice.bookmyshowapp.services;
 
 import com.lldpractice.bookmyshowapp.models.Show;
 import com.lldpractice.bookmyshowapp.models.ShowSeat;
+import com.lldpractice.bookmyshowapp.models.ShowSeatType;
 import com.lldpractice.bookmyshowapp.repositories.ShowSeatTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,19 @@ public class PriceCalculatorService {
     }
     public int calculatePrice(Show show, List<ShowSeat> showSeats) {
 
+        List<ShowSeatType> showSeatTypes = showSeatTypeRepository.findAllByShow(show);
 
-        return 0;
+        int amount = 0;
+
+        for (ShowSeat showSeat : showSeats) {
+            for (ShowSeatType showSeatType : showSeatTypes) {
+                if (showSeatType.getSeatType().equals(showSeat.getSeat().getSeatType())) {
+                    amount += showSeatType.getPrice();
+                    break;
+                }
+            }
+        }
+
+        return amount;
     }
 }

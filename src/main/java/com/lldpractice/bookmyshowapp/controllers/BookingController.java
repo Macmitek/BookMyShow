@@ -10,11 +10,16 @@ public class BookingController {
 
         private BookingService bookingService;
         public BookMovieResponseDto bookMovie(BookMovieRequestDto request){
-             Booking booking =    bookingService.bookMovie(request.getShowSeatIds() , request.getUserId(),request.getShowId());
-             BookMovieResponseDto bookMovieResponseDto = new BookMovieResponseDto();
-             bookMovieResponseDto.setBookingId(booking.getId());
-             bookMovieResponseDto.setAmount(booking.getAmount());
-             bookMovieResponseDto.setStatus(ResponseStatus.SUCCESS);
+            BookMovieResponseDto bookMovieResponseDto = new BookMovieResponseDto();
+            try{
+                Booking booking =    bookingService.bookMovie(request.getShowSeatIds() , request.getUserId(),request.getShowId());
+                bookMovieResponseDto.setBookingId(booking.getId());
+                bookMovieResponseDto.setAmount(booking.getAmount());
+                bookMovieResponseDto.setStatus(ResponseStatus.SUCCESS);
+            }
+            catch (Exception e){
+                bookMovieResponseDto.setStatus(ResponseStatus.FAILURE);
+            }
              return bookMovieResponseDto;
         }
 }
